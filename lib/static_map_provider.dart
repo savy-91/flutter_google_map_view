@@ -34,6 +34,11 @@ class StaticMapProvider {
     return _buildUrl(
         markers, null, null, width ?? defaultWidth, height ?? defaultHeight);
   }
+  
+   Uri getStaticUriWithPolyLine(List<Marker> markers, {int width, int height}) {
+    return _buildUrl(
+        markers, null, null, width ?? defaultWidth, height ?? defaultHeight, true);
+  }
 
   ///
   /// Creates a Uri for the Google Static Maps API using an active MapView
@@ -51,7 +56,7 @@ class StaticMapProvider {
   }
 
   Uri _buildUrl(List<Marker> locations, Location center, int zoomLevel,
-      int width, int height) {
+      int width, int height, bool polyline) {
     var finalUri = new UriBuilder()
       ..scheme = 'https'
       ..host = 'maps.googleapis.com'
@@ -83,6 +88,7 @@ class StaticMapProvider {
         'markers': markersString,
         'size': '${width ?? defaultWidth}x${height ?? defaultHeight}',
         'key': googleMapsApiKey,
+        'path' : polyline ? 'color:0x0000ff|weight:5|' + markerString: ''
       };
     }
 
