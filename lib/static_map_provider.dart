@@ -52,7 +52,7 @@ class StaticMapProvider {
     var center = await mapView.centerLocation;
     var zoom = await mapView.zoomLevel;
     return _buildUrl(markers, center, zoom.toInt(), width ?? defaultWidth,
-        height ?? defaultHeight);
+        height ?? defaultHeight, false);
   }
 
   Uri _buildUrl(List<Marker> locations, Location center, int zoomLevel,
