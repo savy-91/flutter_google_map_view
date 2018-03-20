@@ -21,7 +21,7 @@ class StaticMapProvider {
 
   Uri getStaticUri(Location center, int zoomLevel, {int width, int height}) {
     return _buildUrl(null, center, zoomLevel ?? defaultZoomLevel,
-        width ?? defaultWidth, height ?? defaultHeight);
+        width ?? defaultWidth, height ?? defaultHeight, false);
   }
 
   ///
@@ -32,7 +32,7 @@ class StaticMapProvider {
 
   Uri getStaticUriWithMarkers(List<Marker> markers, {int width, int height}) {
     return _buildUrl(
-        markers, null, null, width ?? defaultWidth, height ?? defaultHeight);
+        markers, null, null, width ?? defaultWidth, height ?? defaultHeight, false);
   }
   
    Uri getStaticUriWithPolyLine(List<Marker> markers, {int width, int height}) {
