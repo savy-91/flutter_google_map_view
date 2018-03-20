@@ -88,7 +88,7 @@ class StaticMapProvider {
         'markers': markersString,
         'size': '${width ?? defaultWidth}x${height ?? defaultHeight}',
         'key': googleMapsApiKey,
-        'path' : polyline ? 'color:0x0000ff|weight:5|' + markerString: ''
+        'path' : polyline ? 'color:0x0000ff|weight:5|' + markersString: ''
       };
     }
 
