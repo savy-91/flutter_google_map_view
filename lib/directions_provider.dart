@@ -59,9 +59,14 @@ class DirectionsProvider {
         waypoints.add(marker);
       });
       String waypointsString = waypoints.join('|');
+      num olat = locations.first.latitude;
+      num olon = locations.first.longitude;
+      num dlat = locations.last.latitude;
+      num dlon = locations.last.longitude;
+
       finalUri.queryParameters = {
-        'origin' : '$locations.first.latitude,$locations.first.longitude',
-        'destination': '$locations.last.latitude,$locations.last.longitude',
+        'origin' : '$olat,$olon',
+        'destination': '$dlat,$dlon',
         //'waypoints' : waypointsString,
         'key': googleMapsApiKey,
         //'path' : polyline ? markersString : ''
