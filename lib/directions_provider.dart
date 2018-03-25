@@ -51,6 +51,15 @@ class DirectionsProvider {
         'key': googleMapsApiKey,
       };
     } else {
+
+      num olat = locations.first.latitude;
+      num olon = locations.first.longitude;
+      num dlat = locations.last.latitude;
+      num dlon = locations.last.longitude;
+
+      locations.removeAt(0);
+      locations.removeLast();
+
       List<String> waypoints = new List();
       locations.forEach((location) {
         num lat = location.latitude;
@@ -59,15 +68,11 @@ class DirectionsProvider {
         waypoints.add(marker);
       });
       String waypointsString = waypoints.join('|');
-      num olat = locations.first.latitude;
-      num olon = locations.first.longitude;
-      num dlat = locations.last.latitude;
-      num dlon = locations.last.longitude;
 
       finalUri.queryParameters = {
         'origin' : '$olat,$olon',
         'destination': '$dlat,$dlon',
-        //'waypoints' : waypointsString,
+        'waypoints' : waypointsString,
         'key': googleMapsApiKey,
         //'path' : polyline ? markersString : ''
       };
