@@ -36,7 +36,7 @@ class StaticMapProvider {
         markers, null, null, width ?? defaultWidth, height ?? defaultHeight, false);
   }
   
-   Uri getStaticUriWithPolyLine(List<Marker> markers, {int width, int height}) {
+   Future<Uri> getStaticUriWithPolyLine(List<Marker> markers, {int width, int height}) async {
     return _buildUrl(
         markers, null, null, width ?? defaultWidth, height ?? defaultHeight, true);
   }
