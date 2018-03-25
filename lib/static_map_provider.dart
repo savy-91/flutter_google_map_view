@@ -41,12 +41,10 @@ class StaticMapProvider {
         markers, null, null, width ?? defaultWidth, height ?? defaultHeight, true);
   }
 
-  Uri getStaticUriWithDirections(List<Marker> markers, {int width, int height}){
+  Future<Uri> getStaticUriWithDirections(List<Marker> markers, {int width, int height}) async{
     DirectionsProvider directions = new DirectionsProvider(googleMapsApiKey);
-    Future<String> polyline =  directions.getDirectionsPolyline(markers);
-    String syncpoly;
-    Future.wait([polyline]).then((List<String> resp){syncpoly= resp[0];});
-    return _buildUrl(markers, null, null, width, height, true, encoded_polyline: syncpoly);
+    String polyline = await directions.getDirectionsPolyline(markers);
+    return _buildUrl(markers, null, null, width, height, true, encoded_polyline: polyline);
   }
 
   ///
