@@ -4,6 +4,7 @@ import 'package:map_view/location.dart';
 import 'package:uri/uri.dart';
 import 'map_view.dart';
 import 'locations.dart';
+import 'directions_provider.dart';
 
 class StaticMapProvider {
   final String googleMapsApiKey;
@@ -40,6 +41,14 @@ class StaticMapProvider {
         markers, null, null, width ?? defaultWidth, height ?? defaultHeight, true);
   }
 
+  Uri getStaticUriWithDirections(List<Marker> markers, {int width, int height}){
+    DirectionsProvider directions = new DirectionsProvider(googleMapsApiKey);
+    Future<String> polyline =  directions.getDirectionsPolyline(markers);
+    String syncpoly;
+    Future.wait([polyline]).then((List<String> resp){syncpoly= resp[0];});
+    return _buildUrl(markers, null, null, width, height, true, encoded_polyline: syncpoly);
+  }
+
   ///
   /// Creates a Uri for the Google Static Maps API using an active MapView
   /// This method is useful for generating a static image
@@ -56,7 +65,7 @@ class StaticMapProvider {
   }
 
   Uri _buildUrl(List<Marker> locations, Location center, int zoomLevel,
-      int width, int height, bool polyline) {
+      int width, int height, bool polyline, {String encoded_polyline=''}) {
     var finalUri = new UriBuilder()
       ..scheme = 'https'
       ..host = 'maps.googleapis.com'
@@ -88,7 +97,7 @@ class StaticMapProvider {
         'markers': markersString,
         'size': '${width ?? defaultWidth}x${height ?? defaultHeight}',
         'key': googleMapsApiKey,
-        'path' : polyline ? 'color:0x0000ff|weight:5|' + markersString: ''
+        'path' : polyline ? (encoded_polyline.isEmpty ? markersString : 'enc:' + encoded_polyline ) : ''
       };
     }
 
