@@ -59,15 +59,17 @@ class DirectionsProvider {
 
       locations.removeAt(0);
       locations.removeLast();
-
-      List<String> waypoints = new List();
-      locations.forEach((location) {
-        num lat = location.latitude;
-        num lng = location.longitude;
-        String marker = '$lat,$lng';
-        waypoints.add(marker);
-      });
-      String waypointsString = waypoints.join('|');
+      String waypointsString = '';
+      if (!locations.isEmpty) {
+        List<String> waypoints = new List();
+        locations.forEach((location) {
+          num lat = location.latitude;
+          num lng = location.longitude;
+          String marker = '$lat,$lng';
+          waypoints.add(marker);
+        });
+        waypointsString = waypoints.join('|');
+      }
 
       finalUri.queryParameters = {
         'origin' : '$olat,$olon',
