@@ -57,8 +57,8 @@ class DirectionsProvider {
       num dlat = locations.last.latitude;
       num dlon = locations.last.longitude;
 
-      locations.removeAt(0);
-      locations.removeLast();
+      //locations.removeAt(0);
+      //locations.removeLast();
       String waypointsString = '';
       if (!locations.isEmpty) {
         List<String> waypoints = new List();
